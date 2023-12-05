@@ -82,25 +82,74 @@ let quemar = 1
 let envenenar = 2
 let fallar = 3
 
+// ITEMS
+
+let pocion = 0;
+let colaFenix = 1; 
+let pocionQuemaduras = 2; 
+let pocionVeneno = 3
+
+function usarItem(objeto){
+    if(objeto == pocion){
+        vida += 50
+    }
+
+    if(objeto == colaFenix){
+        if(vivo == false){
+            vivo = true
+            vida = 30
+        } else {
+            console.log("ya estás vivo, no puedes usarla");
+        }
+        
+    }
+
+    if(objeto == pocionQuemaduras){
+        if(quemado == true){
+            quemado = false
+        } else {
+            console.log("No estás quemado! no se puede usar");
+        }
+     
+    }
+
+    if(objeto == pocionVeneno){
+        if(envenenado == true){
+            envenenado = false
+        } else {
+            console.log("No estás envenenado! no se puede usar");
+        }
+     }
+ 
+
+    muestraEstadoJugador()
+
+}
+
 function muestraEstadoJugador(){
+    if(vivo == true){
+            console.log("Vida: " + vida);
+        if(envenenado == true){
+            console.log("Envenenado");
+        }
 
-    console.log("Vida: " + vida);
-    if(envenenado == true){
-        console.log("Envenenado");
+        if(quemado == true){
+            console.log("Quemado");
+        }
+    } else{
+        console.log("Estas muerto");
     }
-
-    if(quemado == true){
-        console.log("Quemado");
-    }
-    
-    console.log("");
 }
 
 function JuegaTurno(){
     let jugadaCPU = Math.floor(Math.random() * 4);
 
-    if(vida > 0){
-        console.log(jugadaCPU);
+    if(vida <= 0){
+        vivo = false;
+    }
+
+    if(vivo == true){
+                console.log(jugadaCPU);
 
         if(jugadaCPU == atacar ){
             vida-=10
@@ -121,13 +170,12 @@ function JuegaTurno(){
             console.log("He fallado miserablemente");
             }
         muestraEstadoJugador()
-        } else  {
+    } else  {
             console.log("Has muerto");
-        }
-   
-        
     }
+    }
+
+   
     
 
 
-}
